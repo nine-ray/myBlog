@@ -8,11 +8,6 @@ import {connect} from "dva";
 
 const {Header} = Layout;
 
-// @connect(
-//   () => {
-//
-//   }
-// )
 class HeaderView extends Component {
   state = {activeItem: 'home'}
 
