@@ -1,54 +1,59 @@
 import React from 'react';
-import { Layout } from 'antd';
+import {Col, Layout, Row} from 'antd';
 import Media from 'react-media';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import logo from '../assets/logo.svg';
 import styles from './BasicLayout.less';
 import Footer from './Footer';
+import Sider from "./Sider"
 import 'semantic-ui-css/semantic.min.css';
 
 
 import Header from './Header';
 
 
-const { Sider, Content } = Layout;
+const {Content} = Layout;
 
 class BasicLayout extends React.Component {
-  componentDidMount() {
-  }
+    componentDidMount() {
+    }
 
 
+    render() {
+        const {
+            children,
+        } = this.props;
 
-  render() {
-    const {
-      children,
-    } = this.props;
+        const layout = (
+            <Layout>
+                <Header
+                    logo={logo}
+                    {...this.props}
+                />
+                <Row>
+                    <Col span={6}>
+                        <Sider></Sider>
+                    </Col>
+                    <Col span={18}>
+                        <Content className={styles.content}>
+                            {children}
+                        </Content>
+                    </Col>
 
-    const layout = (
-      <Layout>
-          <Header
-            logo={logo}
-            {...this.props}
-          />
-        <Layout>
-          <Sider>Sider</Sider>
-          <Content className={styles.content}>
-            {children}
-          </Content>
-        </Layout>
-          <Footer />
-      </Layout>
-    );
-    return (
-      <React.Fragment>
-        {layout}
-      </React.Fragment>
-    );
-  }
+                </Row>
+                <Footer/>
+            </Layout>
+        );
+        return (
+            <React.Fragment>
+                {layout}
+            </React.Fragment>
+        );
+    }
 }
-export default connect(({  }) => ({
-}))(props => (
-  <Media query="(max-width: 599px)">
-    {() => <BasicLayout {...props} />}
-  </Media>
+
+export default connect(({}) => ({}))(props => (
+    <Media query="(max-width: 599px)">
+        {() => <BasicLayout {...props} />}
+    </Media>
 ));

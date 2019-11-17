@@ -17,7 +17,7 @@ class HeaderView extends Component {
     const {activeItem} = this.state
 
     return (
-        <Menu inverted>
+        <Menu>
           <Menu.Item
             name='home'
             active={activeItem === 'home'}

@@ -10,7 +10,7 @@ const FooterView = () => (
       ]}
       copyright={
         <Fragment>
-          FiveStar API Gateway V1.2 <Icon type="copyright" /> 2016-2019 FiveStar
+            Copyright <Icon type="copyright" /> 2019 nine-ray
         </Fragment>
       }
     />
