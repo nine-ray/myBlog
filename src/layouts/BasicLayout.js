@@ -31,13 +31,13 @@ class BasicLayout extends React.Component {
                     {...this.props}
                 />
                 <Row>
-                    <Col span={6}>
-                        <Sider></Sider>
-                    </Col>
                     <Col span={18}>
                         <Content className={styles.content}>
                             {children}
                         </Content>
+                    </Col>
+                    <Col span={6}>
+                        <Sider></Sider>
                     </Col>
 
                 </Row>
