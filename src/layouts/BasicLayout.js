@@ -14,12 +14,37 @@ import Header from './Header';
 
 const {Content} = Layout;
 
+@connect((common)=>({
+    deskHeight:common.deskHeight,
+    deskDivWidth: common.deskDivWidth
+}))
 class BasicLayout extends React.Component {
     componentDidMount() {
-    }
+       this.handleSize();
+    // 注册浏览器尺寸变化监听事件， 刷新桌面尺寸
+    window.addEventListener('resize', this.handleSize);
+}
+
+componentWillUnmount() {
+    // 移除监听事件
+    window.removeEventListener('resize', this.handleSize);
+}
+// 自适应浏览器的高度
+    handleSize = () => {
+        const { dispatch } = this.props;
+        dispatch({
+            type: 'common/deskChange',
+            payload: {
+                deskHeight:document.body.clientHeight,
+                deskDivWidth:document.body.clientWidth
+            }
+        });
+    };
+
 
 
     render() {
+        console.log("this.props",this.props)
         const {
             children,
         } = this.props;
@@ -30,17 +55,9 @@ class BasicLayout extends React.Component {
                     logo={logo}
                     {...this.props}
                 />
-                <Row>
-                    <Col span={18}>
-                        <Content className={styles.content}>
-                            {children}
-                        </Content>
-                    </Col>
-                    <Col span={6}>
-                        <Sider></Sider>
-                    </Col>
-
-                </Row>
+                <Content className={styles.content}>
+                    {children}
+                </Content>
                 <Footer/>
             </Layout>
         );

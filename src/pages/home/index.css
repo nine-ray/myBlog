@@ -3,6 +3,10 @@
   font-family: Georgia, sans-serif;
   margin-top: 4em;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .welcome {
@@ -19,4 +23,8 @@
 
 .list code {
   background: #f7f7f7;
+}
+.gridStyle {
+  width: 25%;
+  text-align: center;
 }
