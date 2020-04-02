@@ -31,7 +31,7 @@ class Home extends PureComponent {
 
     componentWillMount() {
         const strs = localStorage.getItem("collect");
-        this.collectList = JSON.parse(strs);
+        this.collectList = JSON.parse(strs)||[];
     }
 
     collectList = [];

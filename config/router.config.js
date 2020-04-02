@@ -5,9 +5,7 @@ export default [
     component: '../layouts/BasicLayout',
     routes: [
       // index
-      { path: '/', redirect: '/home' },
-      {
-        path: '/home',
+      { path: '/',
         name: 'home',
         icon: 'home',
         component: './home/home',
