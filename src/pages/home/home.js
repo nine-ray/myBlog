@@ -13,7 +13,7 @@ const layout = {
     wrapperCol: { span: 16 },
 };
 
-
+let formSon=''
 @connect((common) => ({
     deskHeight: common.deskHeight,
     deskDivWidth: common.deskDivWidth
@@ -24,7 +24,8 @@ class Home extends PureComponent {
         super(props);
         this.state = {
             visible: false,
-            uuid: ''
+            uuid: '',
+            visibleSon: false,
         };
     }
 
@@ -34,36 +35,6 @@ class Home extends PureComponent {
             dataInfo: dataInfo || []
         })
     }
-
-    // collectListSort = () => {
-    //     this.collectList.sort((a, b) => b.collectOrder - a.collectOrder)
-    // };
-
-    // changeCollectList = (collect) => {
-    //     const index = this.collectList.findIndex((value) => {
-    //         if (value.collectId === collect.collectId) {
-    //             return true;
-    //         }
-    //         return false;
-    //     });
-    //     if (index >= 0) {
-    //         this.collectList.map((item, i) => {
-    //             if (i !== index && i <= 5) {
-    //                 item.collectOrder = item.collectOrder - 1;
-    //             } else if (i === index) {
-    //                 item = collect
-    //             }
-    //             return item;
-    //         });
-    //         this.collectList = this.collectList.filter(item => item.collectOrder > 0)
-    //     } else {
-    //         this.collectList.push(collect)
-    //     }
-    //     this.collectListSort();
-    //     localStorage.clear();
-    //     localStorage.setItem("collect", JSON.stringify(this.collectList));
-    //     this.forceUpdate();
-    // };
     // 显示添加urlmodal
     showModal = (uuid) => {
         this.setState({
@@ -93,6 +64,11 @@ class Home extends PureComponent {
             }
         })
         localStorage.setItem('foldData', JSON.stringify(dataInfoMid))
+        this.setState({
+            uuid: '',
+            dataInfo: dataInfoMid,
+        })
+        this.forceUpdate()
     }
     // 显示页面
     handleShow = (url) => {
@@ -184,164 +160,66 @@ class Home extends PureComponent {
                 localStorage.setItem('foldData', JSON.stringify(dataInfoMid))
                 resetFields()
                 this.setState({
-                    uuid: ''
+                    uuid: '',
+                    dataInfo: dataInfoMid,
                 })
-                // this.changeCollectList({
-                //     collectId: new Date().getMilliseconds(),
-                //     collectOrder: 100,
-                //     link,
-                //     name
-                // })
+                this.forceUpdate()
             });
             this.setState({
                 visible: false,
             });
         };
-        // const gridType = {
-        //     width: deskDivWidth / 12,
-        //     height: deskDivWidth / 12,
-        //     textAlign: 'center',
-        //     margin: 5,
-        //     padding: 30
-        // }
-        const arrayData = [
-            {
-                topic: '社交',
-                type: 'folder',
-                group: [{
-                    type: 'file',
-                    name: '邮箱，邮箱邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }]
-            }, {
-                topic: '社交',
-                type: 'folder',
-                group: [{
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }]
-            }, {
-                topic: '社交',
-                type: 'folder',
-                group: [{
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                },]
-            }, {
-                topic: '社交',
-                type: 'folder',
-                group: [{
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                },]
-            }, {
-                topic: '社交',
-                type: 'folder',
-                group: [{
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }]
-            }, {
-                topic: '社交',
-                type: 'folder',
-                group: [{
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }, {
-                    type: 'file',
-                    name: '邮箱',
-                    url: 'https://mail.163.com/',
-                }]
-            },
-        ]
+        const handleOkSon = () => {
+            formSon.validateFieldsAndScroll((errors, values) => {
+                if (errors) {
+                    return null
+                } else {
+                    let dataInfo = localStorage.getItem("foldData")? JSON.parse(localStorage.getItem("foldData")):[]
+                    let dataInfoMid=[...dataInfo]
+                    dataInfoMid.push({
+                        topic: values.folderName,
+                        type: 'folder',
+                        group: [],
+                        uuid: this.guid()
+                    })
+                    localStorage.setItem('foldData',JSON.stringify(dataInfoMid))
+                    formSon.resetFields()
+                    this.setState({
+                        visibleSon: false
+                    })
+                    this.setState({
+                        dataInfo: dataInfoMid,
+                    })
+                    this.forceUpdate()
+                }
+            });
+        }
+        // 添加文件夹modal---关闭
+        const handleCancelSon = () => {
+            this.setState({
+                visibleSon: false
+            })
+            formSon.resetFields()
+        }
+        // 添加文件夹
+        const handleAddFolder = () => {
+            this.setState({
+                visibleSon: true
+            })
+        }
+        // 获取子节点
+        const handleGetRef=(f)=>{
+            formSon=f;
+        }
         return (
             <div className={styles.normal}>
-                <SearchBar />
+                <SearchBar
+                    handleOk={handleOkSon}
+                    ref={handleGetRef}
+                    visible={this.state.visibleSon}
+                    handleCancel={handleCancelSon}
+                    handleAddFolder={handleAddFolder}
+                />
                 {/* 中间内容 */}
                 <div className={styles.centerContent}>
                     {this.handleRender(dataInfo && dataInfo.length ? dataInfo : [])}

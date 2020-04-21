@@ -23,7 +23,6 @@ class SearchBar extends PureComponent {
         this.state = {
             currentTool: 0,
             currentKey: "",
-            visible: false,
         };
     }
 
@@ -32,7 +31,6 @@ class SearchBar extends PureComponent {
         window.open(this.toolList[currentTool].link + keyword)
     };
     skipToOther = (link) => {
-        console.log("skipToOther", link);
         window.open(link)
     }
     toolList = [{
@@ -61,13 +59,6 @@ class SearchBar extends PureComponent {
         deskDivWidth = nextProps.deskDivWidth;
         this.forceUpdate();
     }
-    // 生成唯一标示
-    guid() {
-        function S4() {
-          return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-        }
-        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-      }
     render() {
         const { getFieldDecorator, validateFieldsAndScroll, resetFields } = this.props.form
         const content = (
@@ -82,42 +73,6 @@ class SearchBar extends PureComponent {
                 })}
             </Row>
         );
-        // 添加文件夹modal---关闭
-        const handleCancel = () => {
-            this.setState({
-                visible: false
-            })
-            resetFields()
-        }
-        // 添加文件夹modal---确定
-        const handleOk = () => {
-            validateFieldsAndScroll((errors, values) => {
-                if (errors) {
-                    return null
-                } else {
-                    let dataInfo = localStorage.getItem("foldData")? JSON.parse(localStorage.getItem("foldData")):[]
-                    console.log('dataInfo-------', dataInfo)
-                    dataInfo.push({
-                        topic: values.folderName,
-                        type: 'folder',
-                        group: [],
-                        uuid: this.guid()
-                    })
-                    console.log('为了生成唯一标示-----', dataInfo)
-                    localStorage.setItem('foldData',JSON.stringify(dataInfo))
-                    resetFields()
-                    this.setState({
-                        visible: false
-                    })
-                }
-            });
-        }
-        // 添加文件夹
-        const handleAddFolder = () => {
-            this.setState({
-                visible: true
-            })
-        }
         const layout = {
             labelCol: { span: 7 },
             wrapperCol: { span: 16 },
@@ -142,10 +97,10 @@ class SearchBar extends PureComponent {
                             width: "90%",
                         }}
                     />
-                    <a style={{ width: '10%', marginLeft: '10px' }}><Icon onClick={() => { handleAddFolder() }} style={{ fontSize: '30px' }} type="plus-square" /></a>
+                    <a style={{ width: '10%', marginLeft: '10px' }}><Icon onClick={() => { this.props.handleAddFolder() }} style={{ fontSize: '30px' }} type="plus-square" /></a>
                     <Row justify="start"
                         style={{
-                            width: 864, // deskDivWidth * 0.6, 
+                            width: 864, // deskDivWidth * 0.6,
                             marginInline: "auto",
                             display: "inline-block",
                             marginTop: 5
@@ -163,9 +118,9 @@ class SearchBar extends PureComponent {
                 {/* 添加文件夹名称modal */}
                 <Modal
                     title="添加文件夹"
-                    onCancel={handleCancel}
-                    onOk={handleOk}
-                    visible={this.state.visible}
+                    onCancel={this.props.handleCancel}
+                    onOk={this.props.handleOk}
+                    visible={this.props.visible}
                 >
                     <Form
                         {...layout}
