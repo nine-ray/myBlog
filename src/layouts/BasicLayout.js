@@ -1,11 +1,10 @@
 import React from 'react';
-import {Col, Layout, Row} from 'antd';
+import {Layout} from 'antd';
 import Media from 'react-media';
 import {connect} from 'dva';
 import logo from '../assets/logo.svg';
 import styles from './BasicLayout.less';
 import Footer from './Footer';
-import Sider from "./Sider"
 import 'semantic-ui-css/semantic.min.css';
 
 
@@ -14,37 +13,40 @@ import Header from './Header';
 
 const {Content} = Layout;
 
-@connect((common)=>({
-    deskHeight:common.deskHeight,
+@connect((common) => ({
+    deskHeight: common.deskHeight,
     deskDivWidth: common.deskDivWidth
 }))
 class BasicLayout extends React.Component {
     componentDidMount() {
-       this.handleSize();
-    // 注册浏览器尺寸变化监听事件， 刷新桌面尺寸
-    window.addEventListener('resize', this.handleSize);
-}
+        this.handleSize();
+        // 注册浏览器尺寸变化监听事件， 刷新桌面尺寸
+        window.addEventListener('resize', this.handleSize);
+    }
 
-componentWillUnmount() {
-    // 移除监听事件
-    window.removeEventListener('resize', this.handleSize);
-}
+    constructor(props){
+        super(props);
+    }
+
+    componentWillUnmount() {
+        // 移除监听事件
+        window.removeEventListener('resize', this.handleSize);
+    }
+
 // 自适应浏览器的高度
     handleSize = () => {
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
         dispatch({
             type: 'common/deskChange',
             payload: {
-                deskHeight:document.body.clientHeight,
-                deskDivWidth:document.body.clientWidth
+                deskHeight: document.body.clientHeight,
+                deskDivWidth: document.body.clientWidth
             }
         });
     };
 
 
-
     render() {
-        console.log("this.props",this.props)
         const {
             children,
         } = this.props;
